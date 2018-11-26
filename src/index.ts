@@ -4,8 +4,21 @@ const div = document.createElement('div');
 div.innerHTML = 'fdfdfdfdfdfd';
 document.body.appendChild(div);
 
-function koko(param: string) {
-    console.log(param);
+const obj = {
+    a: 'kokoko',
+    b: 34,
+    c: 'blablabla',
+};
+
+const {a: kokoko, b}: {a: string, b: number} = obj;
+let c;
+
+({c} = obj);
+
+console.log(obj, kokoko, b, c);
+
+function func([first, second]: [number, number]) {
+    console.log(first, second);
 }
 
-koko('d.key');
+func([23, 45]);
