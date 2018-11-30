@@ -2,45 +2,36 @@
 import './style.less';
 
 const div = document.createElement('div');
-div.innerHTML = 'fdfdfdfdfdfd';
+div.innerHTML = 'См. в консоль';
 document.body.appendChild(div);
 
-const func: (...arg: number[]) => number = function koko() {  // Забавно
-    Array.prototype.forEach.call(arguments, (item: number, i: number): void => {
-        console.log(`item ${i}:`, item);
-    });
-    console.log('dfdf', arguments);
-    return 1;
+const test: { [key: string]: string } = {
+    '': '',
+    '     ': '5 ',
+    'aaaaabbbbcccdde': '5a4b3c2de',
 };
 
-func(12, 23, 34, 45, 56, 67, 78, 89, 90);
-
-function func2( ...restArg: number[]): void {
-    console.log('func2', restArg);
+function transform(str: string): string {
+    const arr = str.split('');
+    const answer: Array<number| string> = [1, arr[0]];
+    for (let i = 1; i < str.length; i++) {
+        if (str[i] !== answer[answer.length - 1]) {
+            answer.push(1, str[i]);
+        } else {
+            answer[answer.length - 2] = answer[answer.length - 2] as number + 1;
+        }
+    }
+    return answer.filter((item: number | string) => {
+        if (item !== 1) {
+            return item;
+        }
+    }).join('');
 }
-func2(12, 23, 34, 45);
 
-const func3: (...arg: number[]) => void = function anyName(firstArg, secondArg) { // Как в нативном джаваСкрипте
-    console.log('func3', firstArg, '____|____', secondArg, '____|____', arguments);
-};
-func3(12, 21, 23, 32); // 12, 32, [12, 21, 23, 32]
-func3(12); // 12, undefined, [12]
-
-// func([12, 23, 34, 45, 56, 67, 78, 89, 90]);
-
-// const func2: (arg: number[]) => void = (arr) => {
-//     console.log(arr);
-// };
-
-// func2([12, 23, 34, 45, 56, 67, 78, 89, 90]);
-
-// type Ifunc = (a: number) => void;
-// const lalala: Ifunc = (a) => {
-//     console.log(a);
-//     a++;
-//     if (a < 3) {
-//         lalala(a);
-//     }
-// };
-
-// lalala(0);
+for (const key in test) {
+    if (transform(key) === test[key]) {
+        console.log('Eeeeee!!!!11!');
+    } else {
+        console.log('Error with data:', key);
+    }
+}
