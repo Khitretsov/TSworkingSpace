@@ -1,37 +1,24 @@
 // import FirstClass from './file';
+import './example';
 import './style.less';
 
 const div = document.createElement('div');
-div.innerHTML = 'См. в консоль';
+div.classList.add('mainDiv');
+const secondDiv = document.createElement('div');
+secondDiv.classList.add('textFormat');
+secondDiv.innerHTML = 'Какой-то текст';
+div.insertAdjacentElement('afterbegin', secondDiv);
+const arrWithElems = [];
+for (let i = 0; i < 5; i++) {
+    const elem = document.createElement('div');
+    // if (i === 3) {
+    //     elem.classList.add('specialDiv');
+    // } else {
+    //     elem.classList.add('smallDiv');
+    // }
+    elem.classList.add('smallDiv');
+    elem.innerHTML = (i + 1).toString();
+    arrWithElems.push(elem);
+}
+div.append(...arrWithElems);
 document.body.appendChild(div);
-
-const test: { [key: string]: string } = {
-    '': '',
-    '     ': '5 ',
-    'aaaaabbbbcccdde': '5a4b3c2de',
-};
-
-function transform(str: string): string {
-    const arr = str.split('');
-    const answer: Array<number| string> = [1, arr[0]];
-    for (let i = 1; i < str.length; i++) {
-        if (str[i] !== answer[answer.length - 1]) {
-            answer.push(1, str[i]);
-        } else {
-            answer[answer.length - 2] = answer[answer.length - 2] as number + 1;
-        }
-    }
-    return answer.filter((item: number | string) => {
-        if (item !== 1) {
-            return item;
-        }
-    }).join('');
-}
-
-for (const key in test) {
-    if (transform(key) === test[key]) {
-        console.log('Eeeeee!!!!11!');
-    } else {
-        console.log('Error with data:', key);
-    }
-}
